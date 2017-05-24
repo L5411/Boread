@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">Boread</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <!--main menu-->
+    <string name="nav_home">首页</string>
+    <string name="nav_bookmarks">收藏</string>
+
+    <string name="change_theme">切换主题</string>
+    <string name="settings">设置</string>
+    <string name="about">关于</string>
+
+    <string name="zhihu_daily">知乎日报</string>
+    <string name="douban_movie">豆瓣电影</string>
+    <string name="pexels">Pexels</string>
+    <string name="loaded_failed">加载失败</string>
+    <string name="retry">重试</string>
+    <string name="no_browser_found">没有发现浏览器</string>
+    <string name="copied_to_clipboard">复制成功</string>
+    <string name="copied_to_clipboard_failed">复制失败</string>
+    <string name="share_error">分享失败</string>
+    <string name="action_open_in_browser">在浏览器中打开</string>
+    <string name="action_share_as_text">分享至</string>
+    <string name="transition_picture">picture</string>
+    <string name="save_picture">保存图片？</string>
+    <string name="save_at">"保存在: "</string>
+    <string name="save_failed">保存失败</string>
+    <string name="summary">简介</string>
+    <string name="casts">主演</string>
+    <string name="movie_details">电影详情</string>
+</resources>

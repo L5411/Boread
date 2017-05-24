@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.l_5411.boread">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:name=".app.App"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name=".homepage.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".detail.zhihu.ZhihuDetailActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity android:name=".detail.douban.MovieDetailActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity android:name=".detail.PhotoActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <provider
+            android:authorities="com.example.l_5411.boread"
+            android:name=".data.BoreadProvider"/>
+
+        <service android:name=".service.CacheService"/>
+
+    </application>
+
+</manifest>
