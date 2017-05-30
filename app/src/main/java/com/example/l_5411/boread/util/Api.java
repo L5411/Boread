@@ -2,6 +2,8 @@ package com.example.l_5411.boread.util;
 
 import android.net.Uri;
 
+import com.example.l_5411.boread.BuildConfig;
+
 import java.util.Set;
 
 /**
@@ -49,8 +51,7 @@ public class Api {
     }
     // Pexels API 需要添加请求头部 Authorization: YOUR_API_KEY
     public static final String PEXELS_API_POPULAR = "http://api.pexels.com/v1/popular";
-    public static final String PEXELS_API_KEY =
-            "563492ad6f91700001000001bd5d9e93a8164ee45ebbe78c2feb6a98";
+    public static final String PEXELS_API_KEY = BuildConfig.pexels_api_key;
     public static final String PEXELS_API_SEARCH = "http://api.pexels.com/v1/search";
     public static String getPexelsApiPopular(int page) {
         Uri uri = Uri.parse(PEXELS_API_POPULAR).buildUpon()
