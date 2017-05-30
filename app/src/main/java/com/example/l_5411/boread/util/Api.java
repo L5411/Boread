@@ -2,6 +2,8 @@ package com.example.l_5411.boread.util;
 
 import android.net.Uri;
 
+import java.util.Set;
+
 /**
  * Created by L_5411 on 2017/3/11.
  * 知乎日报API
@@ -17,7 +19,9 @@ public class Api {
 
     // 豆瓣电影top250
     public static final String DOUBAN_MOVIE_TOP = "https://api.douban.com/v2/movie/top250";
-
+    // 豆瓣电影搜索 需加参数q或者tag
+    public static final String DOUBAN_MOVIE_SEARCH = "https://api.douban.com/v2/movie/search";
+    public static final String DOUBAN_MOVIE_ITEM = "https://api.douban.com/v2/movie/subject";
     public static String getDoubanMovieTopApi(int start, int size) {
         Uri uri = Uri.parse(DOUBAN_MOVIE_TOP)
                 .buildUpon()
@@ -26,11 +30,16 @@ public class Api {
                 .build();
         return uri.toString();
     }
+    public static String getDoubanMovieSearch(String tag, int start, int size) {
+        Uri uri = Uri.parse(DOUBAN_MOVIE_SEARCH)
+                .buildUpon()
+                .appendQueryParameter("q", tag)
+                .appendQueryParameter("start", Integer.toString(start))
+                .appendQueryParameter("count", Integer.toString(size))
+                .build();
+        return uri.toString();
+    }
 
-    // 豆瓣电影搜索 需加参数q或者tag
-    public static final String DOUBAN_MOVIE_SEARCH = "https://api.douban.com/v2/movie/search";
-
-    public static final String DOUBAN_MOVIE_ITEM = "https://api.douban.com/v2/movie/subject";
     public static String getDoubanMovieItemApi(int id) {
         Uri uri = Uri.parse(DOUBAN_MOVIE_ITEM)
                 .buildUpon()
@@ -39,8 +48,38 @@ public class Api {
         return uri.toString();
     }
     // Pexels API 需要添加请求头部 Authorization: YOUR_API_KEY
-    public static final String PEXELS_API = "http://api.pexels.com/v1/popular";
+    public static final String PEXELS_API_POPULAR = "http://api.pexels.com/v1/popular";
     public static final String PEXELS_API_KEY =
             "563492ad6f91700001000001bd5d9e93a8164ee45ebbe78c2feb6a98";
+    public static final String PEXELS_API_SEARCH = "http://api.pexels.com/v1/search";
+    public static String getPexelsApiPopular(int page) {
+        Uri uri = Uri.parse(PEXELS_API_POPULAR).buildUpon()
+                .appendQueryParameter("page",Integer.toString(page))
+                .appendQueryParameter("per_page","16")
+                .build();
+        return uri.toString();
+    }
+    public static String getPexelsApiSearch(int page, String tag) {
+        Uri uri = Uri.parse(PEXELS_API_SEARCH).buildUpon()
+                .appendQueryParameter("query",tag)
+                .appendQueryParameter("page",Integer.toString(page))
+                .appendQueryParameter("per_page","16")
+                .build();
+        return uri.toString();
+    }
 
+    public static Uri replaceUriParameter(Uri uri, String key, String newValue) {
+        final Set<String> params = uri.getQueryParameterNames();
+        final Uri.Builder newUri = uri.buildUpon().clearQuery();
+        for (String param : params) {
+            String value;
+            if (param.equals(key)) {
+                value = newValue;
+            } else {
+                value = uri.getQueryParameter(param);
+            }
+            newUri.appendQueryParameter(param, value);
+        }
+        return newUri.build();
+    }
 }

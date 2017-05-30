@@ -4,7 +4,9 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 
 import com.android.volley.VolleyError;
 import com.example.l_5411.boread.bean.DoubanMovieListBean;
@@ -28,6 +30,8 @@ import java.util.Vector;
 
 public class DoubanMoviePresenter implements DoubanMovieContract.Presenter{
 
+    private static final String TAG = DoubanMoviePresenter.class.getSimpleName();
+
     private DoubanMovieContract.View view;
     private Context context;
 
@@ -37,6 +41,8 @@ public class DoubanMoviePresenter implements DoubanMovieContract.Presenter{
     private StringModelImpl model;
     private List<DoubanMovieListBean.SubjectsBean> list = new ArrayList<>();
 
+    private String url;
+
     public DoubanMoviePresenter(Context context, DoubanMovieContract.View view) {
         this.context = context;
         this.view = view;
@@ -45,6 +51,7 @@ public class DoubanMoviePresenter implements DoubanMovieContract.Presenter{
         model = new StringModelImpl(context);
         this.start = 0;
         this.size = 20;
+        url = Api.getDoubanMovieTopApi(start, size);
     }
 
     @Override
@@ -53,21 +60,20 @@ public class DoubanMoviePresenter implements DoubanMovieContract.Presenter{
     }
 
     @Override
-    public void loadData(int start, final boolean clearing) {
+    public void loadData(String url, final boolean clearing) {
+        Log.i(TAG, "loadData:" + url);
         if(clearing) {
             view.showLoading();
+            list.clear();
         }
         // 判断网络是否链接
         if(NetworkState.networkConnected(context)) {
-            model.load(Api.getDoubanMovieTopApi(start, size), new OnStringListener() {
+            model.load(url, new OnStringListener() {
                 @Override
                 public void onSuccess(String result) {
                     try {
                         DoubanMovieListBean beans = gson.fromJson(result, DoubanMovieListBean.class);
-                        Vector<ContentValues> cVVetor = new Vector<ContentValues>(beans.getSubjects().size());
-                        if(clearing){
-                            list.clear();
-                        }
+                        Vector<ContentValues> cVVetor = new Vector<>(beans.getSubjects().size());
                         for (DoubanMovieListBean.SubjectsBean item :
                                 beans.getSubjects()) {
                             list.add(item);
@@ -78,18 +84,15 @@ public class DoubanMoviePresenter implements DoubanMovieContract.Presenter{
                             cVVetor.add(contentValues);
                         }
                         view.showResult(list);
-                        int inserted = 0;
                         if( cVVetor.size() > 0) {
                             ContentValues[] cVArray = new ContentValues[cVVetor.size()];
                             cVVetor.toArray(cVArray);
-                            inserted = context.getContentResolver().bulkInsert(BoreadContract.DoubanEntry.CONTENT_URI, cVArray);
                         }
 
                         for(DoubanMovieListBean.SubjectsBean item : beans.getSubjects()) {
                             Intent intent = new Intent("com.example.l_5411.boread.LOCAL_BROADCAST");
                             intent.putExtra("type", CacheService.TYPE_DOUBAN);
                             intent.putExtra("id", item.getId());
-
                             LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
                         }
                     } catch (JsonSyntaxException e) {
@@ -102,6 +105,7 @@ public class DoubanMoviePresenter implements DoubanMovieContract.Presenter{
                 public void onError(VolleyError error) {
                     view.stopLoading();
                     view.showError();
+                    setPageZero();
                 }
             });
         } else {
@@ -122,19 +126,46 @@ public class DoubanMoviePresenter implements DoubanMovieContract.Presenter{
                 view.showResult(list);
             } else {
                 view.showError();
+                setPageZero();
             }
         }
     }
 
     @Override
     public void refresh() {
-        start = 0;
-        loadData(start, true);
+        setPageZero();
+        loadData(url, true);
+        Log.i(TAG, "refresh");
     }
 
     @Override
     public void loadMore() {
+        setNextPage();
+        loadData(url, false);
+        Log.i(TAG, "loadMore");
+    }
+
+    @Override
+    public void search(String tag) {
+        url = Api.getDoubanMovieSearch(tag, start, size);
+        Log.i(TAG, "search: " + url + ", Tag:" + tag);
+        loadData(url, true);
+    }
+
+    @Override
+    public void cancelSearch() {
+        start = 0;
+        url = Api.getDoubanMovieTopApi(start, size);
+        Log.i(TAG, "cancelSearch");
+        loadData(url, true);
+    }
+
+    private void setPageZero() {
+        start = 0;
+        url = Api.replaceUriParameter(Uri.parse(url), "start", Integer.toString(start)).toString();
+    }
+    private void setNextPage() {
         start += size;
-        loadData(start, false);
+        url = Api.replaceUriParameter(Uri.parse(url), "start", Integer.toString(start)).toString();
     }
 }

@@ -2,7 +2,6 @@ package com.example.l_5411.boread.homepage;
 
 import android.content.Context;
 import android.net.Uri;
-import android.util.Log;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Response;
@@ -12,7 +11,6 @@ import com.example.l_5411.boread.app.VolleySingleton;
 import com.example.l_5411.boread.bean.PexelsBean;
 import com.example.l_5411.boread.bean.StringModelImpl;
 import com.example.l_5411.boread.util.Api;
-import com.example.l_5411.boread.util.DateFormatter;
 import com.example.l_5411.boread.util.NetworkState;
 import com.google.gson.Gson;
 
@@ -32,9 +30,8 @@ public class PexelsPresenter implements PexelsContract.Presenter{
     private Context context;
     private StringModelImpl model;
     private int page;
-    private DateFormatter dateFormatter = new DateFormatter();
     private Gson gson = new Gson();
-
+    private String url;
     private ArrayList<PexelsBean.PhotosBean> list = new ArrayList<>();
 
     public PexelsPresenter(Context context, PexelsContract.View view) {
@@ -42,6 +39,8 @@ public class PexelsPresenter implements PexelsContract.Presenter{
         this.view = view;
         this.view.setPresenter(this);
         model = new StringModelImpl(context);
+        page = 1;
+        url = Api.getPexelsApiPopular(page);
     }
 
     @Override
@@ -50,17 +49,12 @@ public class PexelsPresenter implements PexelsContract.Presenter{
     }
 
     @Override
-    public void loadPosts(int page, final boolean clearing) {
+    public void loadPosts(String url, final boolean clearing) {
         if(clearing) {
             view.showLoading();
         }
         if(NetworkState.networkConnected(context)) {
-            Uri url = Uri.parse(Api.PEXELS_API).buildUpon()
-                    .appendQueryParameter("page",Integer.toString(page))
-                    .appendQueryParameter("per_page","16")
-                    .build();
-            Log.i(TAG, "URL: " + url.toString());
-            StringRequest request = new StringRequest(url.toString(), new Response.Listener<String>() {
+            StringRequest request = new StringRequest(url, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
                     PexelsBean bean = gson.fromJson(response, PexelsBean.class);
@@ -96,18 +90,40 @@ public class PexelsPresenter implements PexelsContract.Presenter{
 
     @Override
     public void refresh() {
-        page = 1;
-        loadPosts(page, true);
+        setPageZero();
+        loadPosts(url, true);
     }
 
     @Override
     public void loadMore() {
-        page++;
-        loadPosts(page, false);
+        setNextPage();
+        loadPosts(url, false);
     }
 
     @Override
     public String getUrl(int position) {
         return list.get(position).getSrc().getLarge();
+    }
+
+    @Override
+    public void search(String tag) {
+        url = Api.getPexelsApiSearch(page, tag);
+        loadPosts(url, true);
+    }
+
+    @Override
+    public void cancelSearch() {
+        page = 1;
+        url = Api.getPexelsApiPopular(page);
+        loadPosts(url, true);
+    }
+
+    private void setPageZero() {
+        page = 1;
+        url = Api.replaceUriParameter(Uri.parse(url), "page", Integer.toString(page)).toString();
+    }
+    private void setNextPage() {
+        page++;
+        url = Api.replaceUriParameter(Uri.parse(url), "page", Integer.toString(page)).toString();
     }
 }

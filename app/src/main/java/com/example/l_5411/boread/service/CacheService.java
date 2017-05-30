@@ -87,7 +87,6 @@ public class CacheService extends Service {
                             });
                             VolleySingleton.getVolleySingleton(CacheService.this).addToRequestQueue(req);
                         } else {
-                            Log.i(TAG, response);
                             ContentValues value = new ContentValues();
                             value.put(BoreadContract.ZhihuEntry.COLUMN_CONTENT, response);
                             getContentResolver().update(
@@ -157,7 +156,7 @@ public class CacheService extends Service {
                     startZhihuCache(id);
                     break;
                 case TYPE_DOUBAN:
-                    Log.i(TAG, "Start douban Service");
+
                     startDoubanCache(id);
                     break;
                 case TYPE_PEXELS:

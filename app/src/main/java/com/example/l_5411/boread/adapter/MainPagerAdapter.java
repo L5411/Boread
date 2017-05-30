@@ -53,8 +53,6 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
         this.pexelsFragment = pexelsFragment;
     }
 
-
-
     @Override
     public Fragment getItem(int position) {
         if(position == 0 ) {

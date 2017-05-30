@@ -29,10 +29,13 @@ public interface DoubanMovieContract {
     interface Presenter extends BasePresenter {
 
         // 请求数据
-        void loadData(int page, boolean clearing);
+        void loadData(String url, boolean clearing);
         // 刷新数据
         void refresh();
         // 加载更多
         void loadMore();
+
+        void search(String tag);
+        void cancelSearch();
     }
 }

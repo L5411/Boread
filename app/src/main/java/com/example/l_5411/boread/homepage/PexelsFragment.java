@@ -105,7 +105,7 @@ public class PexelsFragment extends Fragment
 
     @Override
     public void showError() {
-        Snackbar.make(getView(), R.string.loaded_failed, Snackbar.LENGTH_INDEFINITE).show();
+        Snackbar.make(getView(), R.string.loaded_failed, Snackbar.LENGTH_SHORT).show();
     }
 
     @Override

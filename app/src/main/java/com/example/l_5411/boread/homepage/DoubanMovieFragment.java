@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,8 @@ import java.util.List;
 
 public class DoubanMovieFragment extends Fragment
     implements DoubanMovieContract.View{
+
+    private static final String TAG = DoubanMovieFragment.class.getSimpleName();
 
     private DoubanMovieContract.Presenter presenter;
 
@@ -49,6 +52,7 @@ public class DoubanMovieFragment extends Fragment
         View view = inflater.inflate(R.layout.fragment_list, container, false);
         initViews(view);
         presenter.start();
+        Log.i(TAG, "onCreateView");
         return view;
     }
 
@@ -96,7 +100,7 @@ public class DoubanMovieFragment extends Fragment
 
     @Override
     public void showError() {
-        Snackbar.make(getView(), R.string.loaded_failed, Snackbar.LENGTH_INDEFINITE).show();
+        Snackbar.make(getView(), R.string.loaded_failed, Snackbar.LENGTH_SHORT).show();
     }
 
     @Override

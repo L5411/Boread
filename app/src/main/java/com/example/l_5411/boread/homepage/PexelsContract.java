@@ -25,12 +25,15 @@ public interface PexelsContract {
 
     interface Presenter extends BasePresenter {
         // 请求数据
-        void loadPosts(int page, boolean clearing);
+        void loadPosts(String url, boolean clearing);
         // 刷新数据
         void refresh();
         // 加载更多
         void loadMore();
 
         String getUrl(int position);
+
+        void search(String tag);
+        void cancelSearch();
     }
 }
