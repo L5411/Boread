@@ -57,4 +57,15 @@
     <style name="ExpandedToolbar" parent="@android:style/TextAppearance.Medium">
         <item name="android:textColor">@android:color/transparent</item>
     </style>
+
+    <style name="Toolbar.MyStyle" parent="Base.Widget.AppCompat.Toolbar">
+        <item name="contentInsetStart">0dp</item>
+        <item name="contentInsetStartWithNavigation">0dp</item>
+    </style>
+
+    <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">17sp</item>
+    </style>
+
+
 </resources>

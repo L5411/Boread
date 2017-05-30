@@ -30,4 +30,5 @@
     <string name="summary">简介</string>
     <string name="casts">主演</string>
     <string name="movie_details">电影详情</string>
+    <string name="search_CN">搜索</string>
 </resources>
