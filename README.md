@@ -7,14 +7,13 @@
 ```
 PEXELS_API_KEY="YOUR_API_KEY"
 ```
-
-![Screenshot1](https://github.com/L5411/Boread/blob/master/art/Screenshot_1.png) ![screenshot2](https://github.com/L5411/Boread/blob/master/art/Screenshot_2.png)![screenshot3](https://github.com/L5411/Boread/blob/master/art/Screenshot_3.png)
-![screenshot4](https://github.com/L5411/Boread/blob/master/art/Screenshot_4.png)![screenshot5](https://github.com/L5411/Boread/blob/master/art/Screenshot_5.png)![screenshot6](https://github.com/L5411/Boread/blob/master/art/Screenshot_6.png)
+<img src="https://github.com/L5411/Boread/blob/master/art/Screenshot_1.png" style="zoom:50%" /><img src="https://github.com/L5411/Boread/blob/master/art/Screenshot_1.png" style="zoom:50%" /><img src="https://github.com/L5411/Boread/blob/master/art/Screenshot_1.png" style="zoom:50%" />
+<img src="https://github.com/L5411/Boread/blob/master/art/Screenshot_1.png" style="zoom:50%" /><img src="https://github.com/L5411/Boread/blob/master/art/Screenshot_1.png" style="zoom:50%" /><img src="https://github.com/L5411/Boread/blob/master/art/Screenshot_1.png" style="zoom:50%" />
 
 ## 感谢
 
-![PaperPlane](https://github.com/TonnyL/PaperPlane)
-![MovieGuide](https://github.com/esoxjem/MovieGuide)
+[PaperPlane](https://github.com/TonnyL/PaperPlane)
+[MovieGuide](https://github.com/esoxjem/MovieGuide)
 
 ## Boread
 
