@@ -7,7 +7,7 @@
 ```
 PEXELS_API_KEY="YOUR_API_KEY"
 ```
-![Screenshot](https://github.com/L5411/Boread/blob/master/art/screenshot.jpg)
+![Screenshot](https://github.com/L5411/Boread/blob/master/art/Screenshot.jpg)
 
 ## 感谢
 
