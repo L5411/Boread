@@ -7,8 +7,7 @@
 ```
 PEXELS_API_KEY="YOUR_API_KEY"
 ```
-<img src="https://github.com/L5411/Boread/blob/master/art/Screenshot_1.png" style="zoom:50%" /><img src="https://github.com/L5411/Boread/blob/master/art/Screenshot_1.png" style="zoom:50%" /><img src="https://github.com/L5411/Boread/blob/master/art/Screenshot_1.png" style="zoom:50%" />
-<img src="https://github.com/L5411/Boread/blob/master/art/Screenshot_1.png" style="zoom:50%" /><img src="https://github.com/L5411/Boread/blob/master/art/Screenshot_1.png" style="zoom:50%" /><img src="https://github.com/L5411/Boread/blob/master/art/Screenshot_1.png" style="zoom:50%" />
+![Screenshot](https://github.com/L5411/Boread/blob/master/art/Screenshot.jpg)
 
 ## 感谢
 
